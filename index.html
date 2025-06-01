@@ -1,36 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Om Mishra | Software Engineer</title>
-    <link rel="stylesheet" href="assets/css/styles.css" />
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <navbar>
-      <div class="logo">
-        <img src="assets/images/om-high-resolution-logo-transparent.png" alt="Om Mishra Logo" height="30" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om Mishra - Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <meta name="description" content="Om Mishra - Software Engineer">
+  <style>
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+    }
+    navbar {
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 20px;
+    }
+    /* Changed link color to #ffdf90 */
+    .nav-links a {
+      color: #ffdf90;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 400;
+      text-transform: lowercase;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    .nav-links svg {
+      width: 24px;
+      height: 24px;
+      margin-right: 15px;
+      fill: white;
+    }
+    .nav-links img {
+      width: 24px;
+      height: 24px;
+      margin-right: 15px;
+    }
+    .nav-links a:last-child {
+      margin-right: 0;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      text-align: left;
+      padding-bottom: 50px;
+    }
+    .hero-section {
+      max-width: 600px;
+      margin: 0;
+      padding: 20px;
+      padding-bottom: 0px;
+      width: 100%;
+      padding-top: 100px;
+    }
+    .hero-text {
+      color: white;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    .hero-text .user-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+      color: #fff;
+    }
+    .hero-text p {
+      font-size: .9rem;
+      margin: 10px 0;
+      font-weight: 400;
+      color: #ccc;
+      margin: 0;
+      margin-top: 5px !important;
+    }
+    .location {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #aaa !important;
+      margin-top: 3px !important;
+    }
+    .about-section {
+      max-width: 600px;
+      margin: 0px;
+      padding: 20px;
+      padding-top: 0px;
+      border-radius: 8px;
+    }
+    .about-section .heading {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 5px;
+      color: white;
+    }
+    .about-section .description {
+      font-size: .9rem;
+      font-weight: 400;
+      color: #ccc;
+      margin: 0;
+    }
+    .section {
+      max-width: 600px;
+      margin: 20px 0 0 0;
+      padding: 0 20px;
+    }
+    .section .heading {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 5px;
+      color: white;
+    }
+    .section .description,
+    .section ul,
+    .section li {
+      font-size: .9rem;
+      font-weight: 400;
+      color: #ccc;
+      margin: 5px 0 0 0;
+      line-height: 1.4;
+    }
+    .section ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    .resume-entry {
+      margin-bottom: 10px;
+    }
+    .resume-entry .entry-title {
+      font-weight: 500;
+      color: #fff;
+    }
+    .resume-entry .entry-title a {
+      color: #ffdf90;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .resume-entry .entry-duration {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-top: 2px;
+    }
+    .resume-entry .entry-details {
+      margin-top: 5px;
+    }
+    .blog-posts {
+      list-style-type: none !important;
+      padding: 0;
+      margin: 0;
+    }
+    .blog-posts li {
+      margin: 5px 0;
+    }
+    .blog-posts a {
+      color: #ccc !important;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+    .blog-posts {
+      margin-top: 5px !important;
+    }
+    footer {
+      color: #ccc;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    footer a {
+      color: #ffdf90;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      main {
+        padding: 20px;
+      }
+      .hero-text {
+        text-align: left;
+      }
+      .hero-text .user-name {
+        font-size: 1.5rem;
+      }
+      .hero-text p {
+        font-size: 0.8rem;
+      }
+      navbar {
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-links {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-links a {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <navbar>
+    <div class="nav-links">
+      <a href="https://www.linkedin.com/in/om-mishra7/" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+          <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M36.5,6h-25c-3.032,0 -5.5,2.468 -5.5,5.5v25c0,3.032 2.468,5.5 5.5,5.5h25c3.032,0 5.5,-2.468 5.5,-5.5v-25c0,-3.032 -2.468,-5.5 -5.5,-5.5zM18,34c0,0.553 -0.447,1 -1,1h-3c-0.553,0 -1,-0.447 -1,-1v-13c0,-0.553 0.447,-1 1,-1h3c0.553,0 1,0.447 1,1zM15.5,18c-1.381,0 -2.5,-1.119 -2.5,-2.5c0,-1.381 1.119,-2.5 2.5,-2.5c1.381,0 2.5,1.119 2.5,2.5c0,1.381 -1.119,2.5 -2.5,2.5zM35,34c0,0.553 -0.447,1 -1,1h-3c-0.553,0 -1,-0.447 -1,-1v-7.5c0,-1.379 -1.121,-2.5 -2.5,-2.5c-1.379,0 -2.5,1.121 -2.5,2.5v7.5c0,0.553 -0.447,1 -1,1h-3c-0.553,0 -1,-0.447 -1,-1v-13c0,-0.553 0.447,-1 1,-1h3c0.553,0 1,0.447 1,1v0.541c1.063,-0.955 2.462,-1.541 4,-1.541c3.309,0 6,2.691 6,6z"></path></g></g>
+        </svg>
+      </a>
+      <a href="https://x.com/_OmMishra">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256" style="fill:#FFFFFF;">
+          <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M12.5,6c-3.584,0 -6.5,2.916 -6.5,6.5v23c0,3.584 2.916,6.5 6.5,6.5h23c3.584,0 6.5,-2.916 6.5,-6.5v-23c0,-3.584 -2.916,-6.5 -6.5,-6.5zM13.82813,14h6.4375l4.85742,6.94336l6.01367,-6.94336h2l-7.11133,8.23438l8.23242,11.76563h-6.4375l-5.34961,-7.64844l-6.60547,7.64844h-2.04297l7.74219,-8.94336zM16.93555,15.69531l11.65234,16.60938h2.5625l-11.65234,-16.60938z"></path></g></g>
+        </svg>
+      </a>
+      <a href="mailto:hey@om-mishra.com">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB5ElEQVR4nO2YTSuEURTHH8bLJJIyG6SkpCRlIRtlYT6CraWFBiv5Cr6CtZ1vwCxkY1hMIwtZSElKEjFDyctPt86tMe5M95nXq7m/ejYz95zz/z/3PufWCQKPx+PxeAwAUWANOAFy1J+c1FYaokEYgEEggztkgAFb8R3AKe6RUdpsDKziLgkbA+rcuUrKxsA+7rJn+x0sOPYdnAOLVuLzTLSqIOCqgcJvgGUgEkZ4xHAfbACPdRT+KDV/9X8rI8W2C+gDtoC3Ggp/B7aBWLFjbWNAkwLmDP8PSZGPKgr/AnaBEUO9GeBALwxjQJMEJg3rxqVopSSBKUP+Mcn/nb+4HAPI2942XefALHBYhnB138wb8sXkqKrj9IdyDWheJXlvkTN6ZiH8QrpbS0F8N7AJvJQKrtSA5kGKRQ2tdwm4NcTcA+tAW0FMu7TKO5vC1TKguTb1aaBLDD4BWdm1noI1LbITl2EKVtuAJg3EDbn61WP4PS4xoamVgfyOMl0i90SlnSuosQGk7SmRo3k5h6WLfVaaPKiDAY1qgzvyGFui6wZqQuANNJjA70CDCZphB7K4y7ONgWPc5ei/D7ZWbAx0OjYX1aStRouODnfT1sPdgiFvQp27Bn3YWam9Yv3mPR6Px9N0/ACrcjYF9siOdwAAAABJRU5ErkJggg==" alt="email">
+      </a>
+      <a href="https://github.com/Om-Mishra7">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256"
+style="fill:#FFFFFF;">
+<g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M44,24c0,8.96 -5.88,16.54 -14,19.08v-5.08c0,-1.71 -0.72,-3.24 -1.86,-4.34c5.24,-0.95 7.86,-4 7.86,-9.66c0,-2.45 -0.5,-4.39 -1.48,-5.9c0.44,-1.71 0.7,-4.14 -0.52,-6.1c-2.36,0 -4.01,1.39 -4.98,2.53c-1.45,-0.35 -3.12,-0.53 -5.02,-0.53c-1.8,0 -3.46,0.2 -4.94,0.61c-0.96,-1.15 -2.64,-2.61 -5.06,-2.61c-1.42,2.28 -0.84,4.74 -0.3,6.12c-1.08,1.51 -1.7,3.45 -1.7,5.88c0,5.66 2.62,8.71 7.86,9.66c-0.67,0.65 -1.19,1.44 -1.51,2.34h-2.35c-1.44,0 -2,-0.64 -2.77,-1.68c-0.77,-1.04 -1.6,-1.74 -2.59,-2.03c-0.53,-0.06 -0.89,0.37 -0.42,0.75c1.57,1.13 1.68,2.98 2.31,4.19c0.57,1.09 1.75,1.77 3.08,1.77h2.39v4.08c-8.12,-2.54 -14,-10.12 -14,-19.08c0,-11.05 8.95,-20 20,-20c11.05,0 20,8.95 20,20z"></path></g></g>
+</svg>
+      </a>
+      <a href="https://cdn.om-mishra.com/Resume.pdf" target="_blank">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABcElEQVR4nO3ZW0rDQBiG4UGhqFSQugMPm3AV3Y4VYhXsjbiEZjUVL0r13sZtCELglaERhqptMv8cEp3vLi35Ok/nQGiVSklJ2RrgALgFCqCkQdZ6dlSkwT81GfQGwDQ4gtU3b521LoIjWC0bl4CwCBqu+ZqAcAiE2dKVe0d4BvhHIEzNrtwbIhDAHwJhGnblzhGBAe4RyLNrdH3UvGfqDOEAcGp03QVHIE8mHkRkwDtw0WXAF2IMnJl7IkiIHJUA/3gGlvoIrdZ90UXAxOiYdBEwNjr0CZQAVkkzoLqzhJbASXXyLH7YAwvj/aKNgHvjngEwNK6H+jXj+qGtMzCo0adxb20E6LwAxxu6joA5DaICA35F2Aw+FuAbwnbwMQFUp45+DjoHnm1LVADAJdCz6O0BozYA+oLuwzYARoIZuAoBEP28LkwZ/Q8OYV5dAG4iAjIXgH3gMcLgZ8CeGGAgrqvnHZ97oqw+I3M2+JSUP55PYJ8D3Fks+wUAAAAASUVORK5CYII=" alt="file-download">
+        </a>
+    </div>
+  </navbar>
+
+  <main>
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-text">
+        <p class="user-name">Om Mishra</p>
+        <p>User Focused Software Engineer</p>
+        <p class="location">Based in New Delhi, India 🇮🇳</p>
       </div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </div>
-      <div class="social-icons">
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section">
+      <p class="heading">About</p>
+      <p class="description">
+        I’m a full-stack developer who builds engaging, scalable web and mobile applications by combining intuitive front-end designs with reliable back-end architectures to optimize performance and drive growth.
+      </p>
+    </div>
+
+    <!-- Experience Section -->
+    <div class="section">
+      <p class="heading">Experience</p>
+      <div class="resume-entry">
+        <p class="entry-title">Developer | The International Journal of Convergent Research, Gurugram</p>
+        <p class="entry-duration">August 2024 – January 2025</p>
+        <div class="entry-details">
+          <ul>
+            <li>Developed a website to digitize the journal publication process, reducing manual workloads by 40%.</li>
+            <li>Implemented automated workflows for article submission, review, and publication, enhancing turnaround time by 30%.</li>
+          </ul>
         </div>
-    </navbar>
-    <section class="hero-section">
-      <div class="hero-content">
-        <h1>Om Mishra</h1>
-        <p>Software Engineer | Web Developer | Tech Enthusiast</p>
-        <a href="#projects" class="btn">View Projects</a>
       </div>
-    </section>
-  </body>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section">
+      <p class="heading">Projects</p>
+      <div class="resume-entry">
+        <p class="entry-title">
+          CanteenPe
+          <a href="https://github.com/om-mishra7/CanteenPe" target="_blank" style="color: #ffdf90;">[GitHub]</a>
+        </p>
+        <div class="entry-details">
+          <ul>
+            <li>An online food ordering app for K.R. Mangalam University that lets members order food, avoid queues, and pick up orders when ready.</li>
+            <li>Features real-time notifications and secure payment options, projecting a 35% reduction in wait times during peak hours.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="resume-entry">
+        <p class="entry-title">
+          A*
+          <a href="https://github.com/om-mishra7/A-Star" target="_blank" style="color: #ffdf90;">[GitHub]</a>
+          <a href="https://a-star.om-mishra.com/" target="_blank" style="color: #ffdf90;">[Website]</a>
+        </p>
+        <div class="entry-details">
+          <ul>
+            <li>A platform for hosting coding contests and competitive programming challenges, offering real-time leaderboards, problem creation, and automated evaluation.</li>
+            <li>Hosted 5+ competitions with 200+ participants and reduced evaluation time by 60%.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="resume-entry">
+        <p class="entry-title">
+          CertSecure
+          <a href="https://github.com/om-mishra7/CertSecure" target="_blank" style="color: #ffdf90;">[GitHub]</a>
+        </p>
+        <div class="entry-details">
+          <ul>
+            <li>A comprehensive web application designed to provide organizations with a secure certification management system, leveraging blockchain-based verification.</li>
+            <li>Developed in collaboration with the Government of Gujarat; supports real-time document issuance and automated audit trails, reducing manual verification time by 70%.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="section">
+      <p class="heading">Blog</p>
+      <ul class="description blog-posts">
+        <!-- Blog posts will be injected here by JavaScript -->
+      </ul>
+      <script>
+        fetch('https://blog.om-mishra.com/rss')
+          .then(response => response.text())
+          .then(str => new window.DOMParser().parseFromString(str, "application/xml"))
+          .then(data => {
+            const items = data.querySelectorAll('item');
+            const postsContainer = document.querySelector('.blog-posts');
+            items.forEach((el, idx) => {
+              if (idx < 5) {
+                const title = el.querySelector('title').textContent;
+                const link = el.querySelector('link').textContent;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = link;
+                a.textContent = title;
+                a.style.color = '#ffdf90';
+                a.style.textDecoration = 'none';
+                li.appendChild(a);
+                postsContainer.appendChild(li);
+              }
+            });
+          })
+          .catch(err => console.error('Failed to load RSS feed:', err));
+      </script>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="section">
+      <p class="heading">Skills</p>
+      <div class="entry-details">
+        <ul>
+          <li><strong>Languages:</strong> C, Java, Python, JavaScript</li>
+          <li><strong>Technologies:</strong> MySQL, MongoDB, Redis, AWS, Git, React, Node.js, React Native, FastAPI, Flask</li>
+          <li><strong>Core Skills:</strong> Data Structures & Algorithms, Agile Development, DevOps, Version Control (Git)</li>
+          <li><strong>Soft Skills:</strong> Strong Communication, Problem-Solving, Teamwork, Time Management, Adaptability</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Achievements Section -->
+    <div class="section">
+      <p class="heading">Achievements</p>
+      <div class="entry-details">
+        <ul>
+          <li>Winner, Smart India Hackathon – Recognized at the world’s largest hackathon for innovative problem-solving.</li>
+          <li>Top 10 finalist at Vihaan (IIIT Delhi), HackKRMU, Code4Cause, and several other hackathons.</li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <footer style="text-align: center; color: #ccc; padding: 20px;">
+    <p>&copy; <span id="currentYear"></span> Om Mishra. All rights reserved.</p>
+    <p>Made using HTML, CSS, JavaScript, and served over Cloudflare.</p>
+    <script>
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+
+</body>
 </html>
