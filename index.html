@@ -637,10 +637,11 @@
     async function getUserDistanceFromDelhi() {
       const delhi = { lat: 28.6139, lon: 77.2090 };
       try {
-        const res = await fetch("https://ipapi.co/json/");
+        const res = await fetch("https://ipwho.is/");
         const data = await res.json();
         const userLat = parseFloat(data.latitude);
         const userLon = parseFloat(data.longitude);
+
         const distance = haversineDistance(delhi.lat, delhi.lon, userLat, userLon).toFixed(2);
         document.getElementById("footer-info").innerHTML =
           `Powered by a <a href=\"assets/images/raspberry-pi.png\" target=\"_blank\" style=\"color: #ffdf90; text-decoration: underline;\">Raspberry Pi Zero 2 W</a> and securely delivered via Cloudflare Tunnel from ${distance} km away.`;
