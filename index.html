@@ -628,14 +628,14 @@
 
   <footer style="text-align: center; color: #ccc; padding: 20px;">
     <p>&copy; <span id="currentYear"></span> Om Mishra. All rights reserved.</p>
-    <p id="footer-info">Powered by a <a href="assets/images/raspberry-pi.png" target="_blank"
+    <p id="footer-info">Powered by a <a href="assets/images/%20raspberry-pi.png" target="_blank"
         style="color: #ffdf90; text-decoration: underline;">Raspberry Pi Zero 2 W</a> and securely delivered via
       Cloudflare Tunnel...</p>
   </footer>
 
   <script>
     async function getUserDistanceFromDelhi() {
-      const delhi = { lat: 28.6139, lon: 77.2090 };
+      const delhi = { lat: 12.9715987, lon: 77.594562 };
       try {
         const res = await fetch("https://ipwho.is/");
         const data = await res.json();
@@ -644,10 +644,10 @@
 
         const distance = haversineDistance(delhi.lat, delhi.lon, userLat, userLon).toFixed(2);
         document.getElementById("footer-info").innerHTML =
-          `Powered by a <a href=\"assets/images/raspberry-pi.png\" target=\"_blank\" style=\"color: #ffdf90; text-decoration: underline;\">Raspberry Pi Zero 2 W</a> and securely delivered via Cloudflare Tunnel from ${distance} km away.`;
+          `Powered by a <a href=\"assets/images/%20raspberry-pi.png\" target=\"_blank\" style=\"color: #ffdf90; text-decoration: underline;\">Raspberry Pi Zero 2 W</a> and securely delivered via Cloudflare Tunnel from ${distance} km away.`;
       } catch {
         document.getElementById("footer-info").innerHTML =
-          `Powered by a <a href=\"assets/images/raspberry-pi.png\" target=\"_blank\" style=\"color: #ffdf90; text-decoration: underline;\">Raspberry Pi Zero 2 W</a> and securely delivered via Cloudflare Tunnel (location unknown).`;
+          `Powered by a <a href=\"assets/images/%20raspberry-pi.png\" target=\"_blank\" style=\"color: #ffdf90; text-decoration: underline;\">Raspberry Pi Zero 2 W</a> and securely delivered via Cloudflare Tunnel (location unknown).`;
       }
     }
 
