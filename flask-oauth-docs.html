@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flask Social OAuth Library Documentation</title>
+  <link rel="stylesheet" href="/static/css/docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif; 
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 0px 0px;
+} 
+
+strong {
+  font-weight: 500;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Table of Content Styling */
+.table-of-content {
+  position: sticky;
+  top: 0px;
+  bottom: 0px;
+  background-color: #fff;
+  width: 20%;
+  overflow-y: auto;
+  padding: 20px;
+  height: 100vh;
+  font-size: 0.9rem;
+  border-right: 1px solid #ddd;
+
+}
+
+/* Make the scrollbar visible */
+.table-of-content::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Remove bullet points */
+.table-of-content ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Top-level list items */
+.table-of-content ul li {
+  margin: 10px 0;
+  position: relative;
+}
+
+/* Links styling */
+.table-of-content ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* Nested lists (hidden by default) */
+.table-of-content ul li ul {
+  margin-left: 10px;
+  display: none;
+}
+
+.table-of-content ul li ul li {
+  margin: 5px 0;
+  font-weight: normal;
+}
+
+.table-of-content ul li ul li a {
+  font-weight: normal;
+}
+
+/* Arrow indicators */
+.toggle-btn::before {
+  content: "▶";
+  font-size: 12px;
+  margin-right: 5px;
+  transition: transform 0.3s ease;
+}
+
+.expanded>.toggle-btn::before {
+  content: "▼";
+  transform: rotate(90deg);
+}
+
+.main-content {
+  width: 80%;
+  padding: 20px;
+}
+
+.main-content h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.main-content h2 {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.main-content h3 {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.main-content h4 {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.main-content ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.main-content ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.main-content li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.main-content li ul {
+  list-style-type: circle;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.main-content p {
+  margin-bottom: 10px;
+}
+
+.main-content pre {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+
+.main-content code {
+  background-color: #f4f4f4;
+  padding: 5px;
+  border-radius: 5px;
+  word-break: break-word;
+}
+
+pre {
+  position: relative;
+}
+
+pre code {
+  display: block;
+  padding: 1em;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.copy-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.copy-button:hover {
+  background-color: #555;
+}
+
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+
+  .table-of-content {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+}
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre').forEach((pre) => {
+        const button = document.createElement('button');
+        button.innerText = 'Copy';
+        button.classList.add('copy-button');
+        pre.appendChild(button);
+
+        button.addEventListener('click', () => {
+          const code = pre.querySelector('code');
+          if (!code) return;
+
+          const text = code.innerText;
+          navigator.clipboard.writeText(text).then(() => {
+            button.innerText = 'Copied!';
+            setTimeout(() => {
+              button.innerText = 'Copy';
+            }, 1000);
+          }).catch(err => console.error('Failed to copy text: ', err));
+        });
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".table-of-content > ul > li").forEach(function (listItem) {
+        let link = listItem.querySelector(":scope > a"); // Get direct child link
+        let subMenu = listItem.querySelector(":scope > ul"); // Get direct child submenu
+
+        if (subMenu) {
+          link.classList.add("toggle-btn"); // Add class only if submenu exists
+
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            subMenu.style.display = subMenu.style.display === "block" ? "none" : "block";
+            this.classList.toggle("expanded");
+            let arrow = this.querySelector(".arrow");
+          });
+        }
+      });
+    });
+  </script>
+
+
+
+</head>
+
+<body>
+  <main>
+    <div class="table-of-content">
+      <p>Table of Contents</p>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#setup">Setup</a>
+          <ul>
+            <li><a href="#1-import-necessary-modules">1. Import Necessary Modules</a></li>
+            <li><a href="#2-initialize-flask-app-and-session">2. Initialize Flask App and Session</a></li>
+            <li><a href="#3-configure-social-authentication-providers">3. Configure Social Authentication Providers</a>
+              <ul>
+                <li><a href="#google-configuration-configgoogle_auth">Google Configuration
+                    (<code>config.google_auth</code>)</a></li>
+                <li><a href="#github-configuration-configgithub_auth">GitHub Configuration
+                    (<code>config.github_auth</code>)</a></li>
+                <li><a href="#discord-configuration-configdiscord_auth">Discord Configuration
+                    (<code>config.discord_auth</code>)</a></li>
+              </ul>
+            </li>
+            <li><a href="#4-initialize-social-login">4. Initialize Social Login</a></li>
+          </ul>
+        </li>
+        <li><a href="#usage">Usage</a>
+          <ul>
+            <li><a href="#accessing-user-information">Accessing User Information</a></li>
+          </ul>
+        </li>
+        <li><a href="#configuration-options-config-class">Configuration Options (<code>Config</code> Class)</a>
+          <ul>
+            <li><a href="#config-class-constructor"><code>Config</code> Class Constructor</a></li>
+            <li><a href="#provider-configuration-methods---detailed-parameter-explanation">Provider Configuration
+                Methods
+                -
+                Detailed Parameter Explanation</a>
+              <ul>
+                <li><a href="#google-configuration-parameters-google_auth-method">Google Configuration Parameters
+                    (<code>google_auth</code> method)</a></li>
+                <li><a href="#github-configuration-parameters-github_auth-method">GitHub Configuration Parameters
+                    (<code>github_auth</code> method)</a></li>
+                <li><a href="#discord-configuration-parameters-discord_auth-method">Discord Configuration Parameters
+                    (<code>discord_auth</code> method)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#customization---handler-wrappers">Customization - Handler Wrappers</a>
+          <ul>
+            <li><a href="#example-enhanced-logging-with-wrappers">Example: Enhanced Logging with Wrappers</a></li>
+          </ul>
+        </li>
+        <li><a href="#important-notes">Important Notes</a>
+          <ul>
+            <li><a href="#security-best-practices">Security Best Practices</a></li>
+            <li><a href="#state-parameter-and-csrf-protection">State Parameter and CSRF Protection</a></li>
+            <li><a href="#enhanced-error-handling">Enhanced Error Handling</a></li>
+            <li><a href="#provider-application-setup---links-to-documentation">Provider Application Setup - Links to
+                Documentation</a></li>
+          </ul>
+        </li>
+        <li><a href="#example-application-complete-code">Example Application (Complete Code)</a></li>
+      </ul>
+    </div>
+    <div class="main-content">
+      <span class="link-to-github" style="float: right;">
+        <a href="https://github.com/Om-Mishra7/flask-social-oauth" target="_blank" rel="noopener noreferrer"
+          style="color: #000; text-decoration: none;font-family: 'Courier New', Courier, monospace;">
+          [View on GitHub]
+        </a>
+      </span>
+      <h1 id="flask-social-oauth-library-documentation">Flask Social OAuth Library Documentation</h1>
+      <h2 id="introduction">Introduction</h2>
+      <p>Flask Social OAuth is a Flask extension designed to streamline the process of integrating social login into
+        your
+        Flask web applications. It provides a simple and efficient way to enable users to log in using their accounts
+        from
+        popular OAuth 2.0 providers such as Google, GitHub, and Discord.</p>
+      <br>
+      <p><strong>Why use Social Login?</strong></p>
+      <p>Social login offers several advantages:</p>
+      <ul>
+        <li><strong>Improved User Experience:</strong> Reduces friction for new user sign-ups and logins as users can
+          use
+          existing social media accounts instead of creating and remembering new credentials.</li>
+        <li><strong>Increased Conversion Rates:</strong> Simplified login process can lead to higher user registration
+          and
+          engagement.</li>
+        <li><strong>Reduced Password Fatigue:</strong> Users don&#39;t need to manage yet another set of usernames and
+          passwords.</li>
+        <li><strong>Access to User Profile Data (with user consent):</strong> OAuth providers can share user profile
+          information (like email, name, etc.) which can be used to personalize the application experience (depending
+          on
+          scopes requested and user permissions).</li>
+      </ul>
+      <br>
+      <p><strong>Flask Social OAuth Library Benefits:</strong></p>
+      <ul>
+        <li><strong>Simplified OAuth 2.0 Flow:</strong> Handles the complexities of the OAuth 2.0 authorization code
+          grant
+          flow behind the scenes.</li>
+        <li><strong>Provider Abstraction:</strong> Provides a consistent API to configure and interact with different
+          social
+          login providers (Google, GitHub, Discord, with potential for expansion).</li>
+        <li><strong>Session Management:</strong> Integrates seamlessly with Flask sessions to manage user login state.
+        </li>
+        <li><strong>Customizable Handlers:</strong> Allows for wrapping and customizing the login initialization and
+          callback
+          handlers for advanced use cases.</li>
+      </ul>
+      <p>This documentation will guide you through the installation, setup, usage, and configuration options of the
+        Flask
+        Social OAuth library to quickly add social login functionality to your Flask projects.</p>
+      <h2 id="installation">Installation</h2>
+      <p>Before you begin, ensure you have Python and pip (Python package installer) installed on your system.</p>
+      <p>To install Flask Social OAuth, use pip:</p>
+      <pre><code class="language-bash">pip install flask-social-oauth
+</code></pre>
+      <p>This command will download and install the Flask Social OAuth library and its dependencies into your Python
+        environment.</p>
+      <h2 id="setup">Setup</h2>
+      <p>To integrate Flask Social OAuth into your Flask application, follow these setup steps:</p>
+      <h3 id="1-import-necessary-modules">1. Import Necessary Modules</h3>
+      <p>In your Flask application file (typically <code>app.py</code> or <code>__init__.py</code>), import the
+        required
+        classes and functions from Flask and Flask Social OAuth:</p>
+
+      <pre><code>from flask import Flask, session, jsonify  # Flask essentials
+from flask_social_oauth import Config, initialize_social_login # Flask Social OAuth
+</code></pre>
+      <ul>
+        <li><strong><code>Flask, session, jsonify</code> (from <code>flask</code>)</strong>: These are standard Flask
+          components.<ul>
+            <li><code>Flask</code>: The core class for creating a Flask application instance.</li>
+            <li><code>session</code>: Flask&#39;s built-in mechanism for managing user sessions and storing data
+              related
+              to
+              a
+              user&#39;s interaction with the application. Essential for maintaining login state.</li>
+            <li><code>jsonify</code>: A helper function for creating JSON responses, useful for API endpoints and
+              returning
+              data in web applications.</li>
+          </ul>
+        </li>
+        <li><strong><code>Config, initialize_social_login</code> (from <code>flask_social_oauth</code>)</strong>:
+          These
+          are
+          the main components provided by this library.<ul>
+            <li><code>Config</code>: A class to encapsulate and manage the configuration settings for social
+              authentication
+              providers (like API keys, secrets, scopes, and URIs).</li>
+            <li><code>initialize_social_login</code>: A function that takes your Flask app, session object, and
+              configuration
+              object to set up the necessary routes and handlers for social login within your application.</li>
+          </ul>
+        </li>
+      </ul>
+      <h3 id="2-initialize-flask-app-and-session">2. Initialize Flask App and Session</h3>
+      <p>Create an instance of your Flask application and configure a secret key. <strong>It is crucial to set a
+          strong,
+          unique <code>secret_key</code> for your Flask application</strong>. This key is used to cryptographically
+        sign
+        the
+        session cookies, protecting user session data.</p>
+
+      <pre><code>app = Flask(__name__)
+app.secret_key = &#39;your_secret_key&#39; # Replace &#39;your_secret_key&#39; with a strong, randomly generated secret key!
+</code></pre>
+      <p><strong>Security Note:</strong></p>
+      <ul>
+        <li><strong>Replace <code>&#39;your_secret_key&#39;</code> with a genuinely strong and randomly generated
+            secret
+            key,
+            especially in production environments.</strong> Do not use easily guessable keys. For production, consider
+          using
+          environment variables or secure key management practices to store and retrieve your secret key.</li>
+        <li>A strong secret key should be long, random, and kept confidential.</li>
+      </ul>
+      <h3 id="3-configure-social-authentication-providers">3. Configure Social Authentication Providers</h3>
+      <p>Instantiate the <code>Config</code> class and use its methods (<code>google_auth</code>,
+        <code>github_auth</code>,
+        <code>discord_auth</code>) to configure the social login providers you want to enable in your application. You
+        will
+        need to obtain OAuth Client IDs and Client Secrets for each provider by creating applications in their
+        respective
+        developer consoles.
+      </p>
+
+      <pre><code>config = Config() # Create a Config object
+
+config.google_auth(
+    google_auth_client_id=&quot;&lt;YOUR_GOOGLE_CLIENT_ID&gt;&quot;,  #  &lt;- Replace Placeholder!
+    google_auth_client_secret=&quot;&lt;YOUR_GOOGLE_CLIENT_SECRET&gt;&quot;, # &lt;- Replace Placeholder!
+    google_auth_initialization_handler_uri=&quot;/auth/google/login&quot;, # Customize if needed
+    google_auth_callback_handler_uri=&quot;/auth/google/callback&quot;   # Customize if needed
+)
+
+config.github_auth(
+    github_auth_client_id=&quot;&lt;YOUR_GITHUB_CLIENT_ID&gt;&quot;, # &lt;- Replace Placeholder!
+    github_auth_client_secret=&quot;&lt;YOUR_GITHUB_CLIENT_SECRET&gt;&quot;, # &lt;- Replace Placeholder!
+    github_auth_initialization_handler_uri=&quot;/auth/github/login&quot;, # Customize if needed
+    github_auth_callback_handler_uri=&quot;/auth/github/callback&quot; # Customize if needed
+)
+
+config.discord_auth(
+    discord_auth_client_id=&quot;&lt;YOUR_DISCORD_CLIENT_ID&gt;&quot;, # &lt;- Replace Placeholder!
+    discord_auth_client_secret=&quot;&lt;YOUR_DISCORD_CLIENT_SECRET&gt;&quot;, # &lt;- Replace Placeholder!
+    discord_auth_initialization_handler_uri=&quot;/auth/discord/login&quot;, # Customize if needed
+    discord_auth_callback_handler_uri=&quot;/auth/discord/callback&quot; # Customize if needed
+)
+</code></pre>
+      <p><strong>Important:</strong></p>
+      <ul>
+        <li><strong>Replace Placeholders:</strong> For each provider you enable, <strong>you MUST replace the
+            placeholder
+            strings</strong> (e.g., <code>&lt;YOUR_GOOGLE_CLIENT_ID&gt;</code>) with the actual Client ID and Client
+          Secret
+          you obtain from the respective provider&#39;s developer console (Google Cloud Console, GitHub Developer
+          settings,
+          Discord Developer Portal).</li>
+        <li><strong>Obtaining Client IDs and Secrets:</strong> You&#39;ll need to create OAuth applications within the
+          developer portals of each social provider you intend to support. During application creation, you will be
+          assigned
+          a
+          Client ID and a Client Secret. Keep these credentials secure.</li>
+        <li><strong>Redirect URIs/Callback URLs:</strong> When creating your OAuth applications on Google, GitHub, and
+          Discord, you will be asked to configure <strong>Redirect URIs</strong> (Google and Discord) or
+          <strong>Callback
+            URL</strong> (GitHub). <strong>These URIs MUST match the <code>*_auth_callback_handler_uri</code> you
+            configure
+            in
+            your Flask Social OAuth <code>Config</code> object.</strong> These are the URLs where the social provider
+          will
+          redirect users back to your application after successful authentication.<ul>
+            <li>For example, if you set
+              <code>google_auth_callback_handler_uri=&quot;/auth/google/callback&quot;</code>,
+              then
+              in your Google Cloud Console OAuth application settings, you must add
+              <code>http://your-application-domain.com/auth/google/callback</code> (or
+              <code>http://localhost:5000/auth/google/callback</code> for local development) as an authorized redirect
+              URI.
+            </li>
+            <li>The <code>*_auth_initialization_handler_uri</code> values define the URL paths within your Flask
+              application
+              that users will visit to initiate the social login process for each provider (e.g.,
+              <code>/auth/google/login</code> will start the Google login flow). You can customize these URIs if
+              needed.
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <h4 id="google-configuration-configgoogle_auth">Google Configuration (<code>config.google_auth</code>)</h4>
+
+      <pre><code>config.google_auth(
+    google_auth_client_id=&quot;YOUR_GOOGLE_CLIENT_ID&quot;,
+    google_auth_client_secret=&quot;YOUR_GOOGLE_CLIENT_SECRET&quot;,
+    google_auth_scope=&quot;email profile openid&quot;, # Optional, customize scopes if needed
+    google_auth_success_redirect_uri=&quot;/&quot;,     # Optional, redirect after login success
+    google_auth_initialization_handler_uri=&quot;/auth/google/login&quot;, # Optional, customize login URI
+    google_auth_callback_handler_uri=&quot;/auth/google/callback&quot;,   # Optional, customize callback URI
+    google_auth_initialization_handler_wrapper=None, # Optional, for custom handler logic
+    google_auth_callback_handler_wrapper=None     # Optional, for custom callback logic
+)
+</code></pre>
+      <h4 id="github-configuration-configgithub_auth">GitHub Configuration (<code>config.github_auth</code>)</h4>
+
+      <pre><code>config.github_auth(
+    github_auth_client_id=&quot;YOUR_GITHUB_CLIENT_ID&quot;,
+    github_auth_client_secret=&quot;YOUR_GITHUB_CLIENT_SECRET&quot;,
+    github_auth_scope=&quot;user:email&quot;, # Optional, customize scopes if needed
+    github_auth_success_redirect_uri=&quot;/&quot;,     # Optional, redirect after login success
+    github_auth_initialization_handler_uri=&quot;/auth/github/login&quot;, # Optional, customize login URI
+    github_auth_callback_handler_uri=&quot;/auth/github/callback&quot;,   # Optional, customize callback URI
+    github_auth_initialization_handler_wrapper=None, # Optional, for custom handler logic
+    github_auth_callback_handler_wrapper=None     # Optional, for custom callback logic
+)
+</code></pre>
+      <h4 id="discord-configuration-configdiscord_auth">Discord Configuration (<code>config.discord_auth</code>)</h4>
+
+      <pre><code>config.discord_auth(
+    discord_auth_client_id=&quot;YOUR_DISCORD_CLIENT_ID&quot;,
+    discord_auth_client_secret=&quot;YOUR_DISCORD_CLIENT_SECRET&quot;,
+    discord_auth_scope=&quot;identify email&quot;, # Optional, customize scopes if needed
+    discord_auth_success_redirect_uri=&quot;/&quot;,     # Optional, redirect after login success
+    discord_auth_initialization_handler_uri=&quot;/auth/discord/login&quot;, # Optional, customize login URI
+    discord_auth_callback_handler_uri=&quot;/auth/discord/callback&quot;,   # Optional, customize callback URI
+    discord_auth_initialization_handler_wrapper=None, # Optional, for custom handler logic
+    discord_auth_callback_handler_wrapper=None     # Optional, for custom callback logic
+)
+</code></pre>
+      <h3 id="4-initialize-social-login">4. Initialize Social Login</h3>
+      <p>After configuring the providers, call the <code>initialize_social_login</code> function. This function
+        registers
+        the
+        necessary URL routes within your Flask application to handle the social login flow.</p>
+
+      <pre><code>initialize_social_login(session, app, config)
+</code></pre>
+      <ul>
+        <li><strong><code>session</code></strong>: Pass the Flask <code>session</code> object. This is essential for
+          the
+          library to manage user login state using Flask sessions.</li>
+        <li><strong><code>app</code></strong>: Pass your Flask application instance (<code>app</code>). This allows
+          the
+          library to add URL rules (routes) to your application for handling login and callback requests.</li>
+        <li><strong><code>config</code></strong>: Pass the <code>Config</code> object you created and configured in
+          the
+          previous step. This provides the library with all the necessary configuration details for each social
+          provider.
+        </li>
+      </ul>
+      <h2 id="usage">Usage</h2>
+      <p>Once setup is complete, your application will have endpoints ready to handle social logins.</p>
+      <p>To initiate social login for a specific provider, direct users to the
+        <code>*_auth_initialization_handler_uri</code>
+        you configured (e.g., <code>/auth/google/login</code>, <code>/auth/github/login</code>,
+        <code>/auth/discord/login</code>). You can create links in your application&#39;s login page that point to
+        these
+        URIs.
+      </p>
+      <p>Upon successful authentication at the social provider&#39;s site, the user will be redirected back to your
+        application at the configured <code>*_auth_callback_handler_uri</code>. The Flask Social OAuth library handles
+        the
+        callback, retrieves user information, stores it in the Flask <code>session</code>, and then redirects the user
+        to
+        the
+        <code>*_auth_success_redirect_uri</code> (defaulting to your application&#39;s root <code>/</code>).
+      </p>
+      <h3 id="accessing-user-information">Accessing User Information</h3>
+      <p>After a successful social login, the user&#39;s profile information retrieved from the social provider is
+        stored
+        in
+        the Flask <code>session</code> under the key <code>&quot;user&quot;</code>. You can access this information in
+        your
+        Flask routes to personalize the user experience, identify logged-in users, or for any other application logic.
+      </p>
+
+      <pre><code>from flask import session, jsonify
+
+@app.route(&#39;/&#39;)
+def home():
+    user_data = session.get(&#39;user&#39;) # Retrieve user data from session
+    if user_data:
+        return jsonify({&#39;message&#39;: &#39;Welcome, User!&#39;, &#39;user_profile&#39;: user_data})
+    else:
+        return jsonify({&#39;message&#39;: &#39;Not logged in&#39;})
+</code></pre>
+      <p>In this example:</p>
+      <ul>
+        <li>The <code>home</code> route retrieves the user data from the <code>session</code> using
+          <code>session.get(&#39;user&#39;)</code>.
+        </li>
+        <li>If <code>user_data</code> exists (meaning a user is logged in), it returns a JSON response with a welcome
+          message
+          and the user&#39;s profile information.</li>
+        <li>If <code>user_data</code> is <code>None</code> (no user logged in), it returns a message indicating the
+          user
+          is
+          not logged in.</li>
+      </ul>
+      <p>The structure and content of the <code>user_data</code> dictionary will vary slightly depending on the social
+        provider and the scopes you requested, but typically includes information like:</p>
+      <ul>
+        <li><code>id</code>: The user&#39;s unique ID from the social provider.</li>
+        <li><code>name</code> or <code>username</code>: The user&#39;s name or username.</li>
+        <li><code>email</code>: The user&#39;s email address (if the <code>email</code> scope was requested and
+          granted).
+        </li>
+        <li><code>avatar_url</code> or <code>picture</code>: A link to the user&#39;s profile picture (if available).
+        </li>
+        <li>Other profile details based on the provider and requested scopes.</li>
+      </ul>
+      <h2 id="configuration-options-config-class">Configuration Options (<code>Config</code> Class)</h2>
+      <p>The <code>Config</code> class is central to configuring Flask Social OAuth. It allows you to set global
+        settings
+        and,
+        most importantly, configure each social login provider you wish to support.</p>
+      <h3 id="config-class-constructor"><code>Config</code> Class Constructor</h3>
+
+      <pre><code>Config(social_auth_providers=[], application_root_url=&quot;[http://127.0.0.1:5000](http://127.0.0.1:5000)&quot;)
+</code></pre>
+      <ul>
+        <li>
+          <p><strong><code>social_auth_providers</code> (list, optional):</strong> <em>(Generally not directly
+              modified)</em>.
+            This list internally tracks the social providers that have been configured using the
+            <code>google_auth</code>,
+            <code>github_auth</code>, and <code>discord_auth</code> methods. You typically do not need to pass this
+            parameter
+            when creating a <code>Config</code> instance; it is managed by the configuration methods.
+          </p>
+        </li>
+        <li>
+          <p><strong><code>application_root_url</code> (str, optional):</strong> Specifies the root URL of your Flask
+            application. It defaults to <code>&quot;http://127.0.0.1:5000&quot;</code>. <strong>It is highly
+              recommended
+              to
+              set this to your application&#39;s actual base URL, especially in production</strong>. This URL is used
+            to
+            construct the full redirect URIs that are passed to the social OAuth providers. Ensure this URL is
+            correctly
+            set;
+            otherwise, the OAuth redirect flow might fail. For example, if your application is hosted at
+            <code>https://www.example.com</code>, you should initialize <code>Config</code> like this:
+          </p>
+
+          <pre><code>config = Config(application_root_url=&quot;[https://www.example.com](https://www.example.com)&quot;)
+</code></pre>
+        </li>
+      </ul>
+      <h3 id="provider-configuration-methods---detailed-parameter-explanation">Provider Configuration Methods -
+        Detailed
+        Parameter Explanation</h3>
+      <p>The <code>Config</code> class provides methods to configure each supported social provider. These methods
+        share
+        a
+        similar structure, accepting parameters specific to each provider&#39;s OAuth 2.0 implementation.</p>
+      <h4 id="google-configuration-parameters-google_auth-method">Google Configuration Parameters
+        (<code>google_auth</code>
+        method)</h4>
+
+      <pre><code>config.google_auth(
+    google_auth_client_id,
+    google_auth_client_secret,
+    google_auth_scope=&quot;email profile openid&quot;,
+    google_auth_success_redirect_uri=&quot;/&quot;,
+    google_auth_initialization_handler_uri=&quot;/google/login&quot;,
+    google_auth_callback_handler_uri=&quot;/google/callback&quot;,
+    google_auth_initialization_handler_wrapper=None,
+    google_auth_callback_handler_wrapper=None
+)
+</code></pre>
+      <ul>
+        <li><strong><code>google_auth_client_id</code> (str, required):</strong> Your application&#39;s Google Client
+          ID
+          obtained from the Google Cloud Console. This uniquely identifies your application to Google&#39;s OAuth
+          service.
+        </li>
+        <li><strong><code>google_auth_client_secret</code> (str, required):</strong> Your application&#39;s Google
+          Client
+          Secret, also obtained from the Google Cloud Console. This secret is used to authenticate your application
+          when
+          exchanging authorization codes for access tokens. <strong>Keep this secret confidential.</strong></li>
+        <li><strong><code>google_auth_scope</code> (str, optional, default:
+            <code>&quot;email profile openid&quot;</code>):</strong> Defines the OAuth 2.0 scopes you are requesting
+          from
+          Google. Scopes specify the user data your application wants to access. Common scopes include:<ul>
+            <li><code>email</code>: Access to the user&#39;s email address.</li>
+            <li><code>profile</code>: Access to basic profile information (name, profile picture, etc.).</li>
+            <li><code>openid</code>: Required for OpenID Connect, enables user authentication and ID token retrieval.
+              You
+              can
+              customize this to request other Google API scopes as needed. Refer to Google&#39;s OAuth 2.0
+              documentation
+              for
+              a
+              complete list of scopes.</li>
+          </ul>
+        </li>
+        <li><strong><code>google_auth_success_redirect_uri</code> (str, optional, default: <code>/</code>):</strong>
+          The
+          URI
+          within your Flask application to which the user will be redirected after successfully authenticating with
+          Google.
+          Defaults to the root path (<code>/</code>). You can customize this to redirect to a specific page in your
+          application after login.</li>
+        <li><strong><code>google_auth_initialization_handler_uri</code> (str, optional, default:
+            <code>&quot;/google/login&quot;</code>):</strong> The URL path in your Flask application that, when
+          visited
+          by
+          a
+          user, will initiate the Google social login flow. Defaults to <code>/google/login</code>. You can customize
+          this
+          path.</li>
+        <li><strong><code>google_auth_callback_handler_uri</code> (str, optional, default:
+            <code>&quot;/google/callback&quot;</code>):</strong> The URL path in your Flask application that Google
+          will
+          redirect back to after the user has authenticated (or declined). This URI must match the Redirect URIs you
+          configured in your Google Cloud Console OAuth application settings. Defaults to
+          <code>/google/callback</code>.
+          Customize this if needed, but ensure consistency with your Google OAuth application configuration.
+        </li>
+        <li><strong><code>google_auth_initialization_handler_wrapper</code> (function, optional, default:
+            <code>None</code>):</strong> Allows you to provide a wrapper function to customize the behavior of the
+          Google
+          login initialization handler. See the <a
+            href="https://www.google.com/url?sa=E&source=gmail&q=#customization---handler-wrappers">Customization -
+            Handler
+            Wrappers</a> section for details.</li>
+        <li><strong><code>google_auth_callback_handler_wrapper</code> (function, optional, default:
+            <code>None</code>):</strong> Allows you to provide a wrapper function to customize the behavior of the
+          Google
+          login callback handler. See the <a
+            href="https://www.google.com/url?sa=E&source=gmail&q=#customization---handler-wrappers">Customization -
+            Handler
+            Wrappers</a> section for details.</li>
+      </ul>
+      <h4 id="github-configuration-parameters-github_auth-method">GitHub Configuration Parameters
+        (<code>github_auth</code>
+        method)</h4>
+
+      <pre><code>config.github_auth(
+    github_auth_client_id,
+    github_auth_client_secret,
+    github_auth_scope=&quot;user:email&quot;,
+    github_auth_success_redirect_uri=&quot;/&quot;,
+    github_auth_initialization_handler_uri=&quot;/github/login&quot;,
+    github_auth_callback_handler_uri=&quot;/github/callback&quot;,
+    github_auth_initialization_handler_wrapper=None,
+    github_auth_callback_handler_wrapper=None
+)
+</code></pre>
+      <ul>
+        <li><strong><code>github_auth_client_id</code> (str, required):</strong> Your application&#39;s GitHub Client
+          ID
+          from
+          your GitHub Developer application settings.</li>
+        <li><strong><code>github_auth_client_secret</code> (str, required):</strong> Your GitHub Client Secret from
+          your
+          GitHub Developer application settings. <strong>Keep this secret secure.</strong></li>
+        <li><strong><code>github_auth_scope</code> (str, optional, default:
+            <code>&quot;user:email&quot;</code>):</strong>
+          Specifies the OAuth 2.0 scopes to request from GitHub.<ul>
+            <li><code>user:email</code>: Allows access to the user&#39;s primary email address and other email
+              addresses
+              associated with their GitHub account. Refer to GitHub&#39;s OAuth documentation for a complete list of
+              available
+              scopes.</li>
+          </ul>
+        </li>
+        <li><strong><code>github_auth_success_redirect_uri</code> (str, optional, default: <code>/</code>):</strong>
+          URI
+          to
+          redirect to after successful GitHub login.</li>
+        <li><strong><code>github_auth_initialization_handler_uri</code> (str, optional, default:
+            <code>&quot;/github/login&quot;</code>):</strong> URL path to initiate GitHub login.</li>
+        <li><strong><code>github_auth_callback_handler_uri</code> (str, optional, default:
+            <code>&quot;/github/callback&quot;</code>):</strong> Callback URL path from GitHub. Ensure this matches
+          your
+          GitHub OAuth application&#39;s Callback URL setting.</li>
+        <li><strong><code>github_auth_initialization_handler_wrapper</code> (function, optional, default:
+            <code>None</code>):</strong> Wrapper for the GitHub login initialization handler.</li>
+        <li><strong><code>github_auth_callback_handler_wrapper</code> (function, optional, default:
+            <code>None</code>):</strong> Wrapper for the GitHub login callback handler.</li>
+      </ul>
+      <h4 id="discord-configuration-parameters-discord_auth-method">Discord Configuration Parameters
+        (<code>discord_auth</code> method)</h4>
+
+      <pre><code>config.discord_auth(
+    discord_auth_client_id,
+    discord_auth_client_secret,
+    discord_auth_scope=&quot;identify email&quot;,
+    discord_auth_success_redirect_uri=&quot;/&quot;,
+    discord_auth_initialization_handler_uri=&quot;/discord/login&quot;,
+    discord_auth_callback_handler_uri=&quot;/discord/callback&quot;,
+    discord_auth_initialization_handler_wrapper=None,
+    discord_auth_callback_handler_wrapper=None
+)
+</code></pre>
+      <ul>
+        <li><strong><code>discord_auth_client_id</code> (str, required):</strong> Your Discord Application&#39;s
+          Client
+          ID
+          from the Discord Developer Portal.</li>
+        <li><strong><code>discord_auth_client_secret</code> (str, required):</strong> Your Discord Application&#39;s
+          Client
+          Secret from the Discord Developer Portal. <strong>Keep this secret secure.</strong></li>
+        <li><strong><code>discord_auth_scope</code> (str, optional, default:
+            <code>&quot;identify email&quot;</code>):</strong> OAuth 2.0 scopes for Discord.<ul>
+            <li><code>identify</code>: Allows access to basic user identification information (username,
+              discriminator,
+              avatar, etc.).</li>
+            <li><code>email</code>: Allows access to the user&#39;s email address. Refer to Discord&#39;s OAuth2
+              documentation
+              for other available scopes.</li>
+          </ul>
+        </li>
+        <li><strong><code>discord_auth_success_redirect_uri</code> (str, optional, default: <code>/</code>):</strong>
+          Redirect
+          URI after successful Discord login.</li>
+        <li><strong><code>discord_auth_initialization_handler_uri</code> (str, optional, default:
+            <code>&quot;/discord/login&quot;</code>):</strong> URL path to initiate Discord login.</li>
+        <li><strong><code>discord_auth_callback_handler_uri</code> (str, optional, default:
+            <code>&quot;/discord/callback&quot;</code>):</strong> Callback URL path from Discord. Ensure this matches
+          the
+          Redirects setting in your Discord Developer Portal OAuth2 configuration.</li>
+        <li><strong><code>discord_auth_initialization_handler_wrapper</code> (function, optional, default:
+            <code>None</code>):</strong> Wrapper for Discord login initialization handler.</li>
+        <li><strong><code>discord_auth_callback_handler_wrapper</code> (function, optional, default:
+            <code>None</code>):</strong> Wrapper for Discord login callback handler.</li>
+      </ul>
+      <h2 id="customization---handler-wrappers">Customization - Handler Wrappers</h2>
+      <p>Handler wrappers provide a powerful mechanism to inject custom logic into the social login process without
+        directly
+        modifying the core library code. You can use wrappers to:</p>
+      <ul>
+        <li><strong>Logging:</strong> Log login attempts, errors, or successful logins.</li>
+        <li><strong>Data Enrichment:</strong> Add additional data to the user session or perform extra processing
+          after
+          user
+          authentication.</li>
+        <li><strong>Custom Redirection:</strong> Implement conditional redirects based on user roles or application
+          state.
+        </li>
+        <li><strong>Security Enhancements:</strong> Add extra security checks or validation steps.</li>
+      </ul>
+      <p>Handler wrappers are functions that take the original handler function (either the login initialization
+        handler
+        or
+        the callback handler) as an argument and return a new function (the wrapper). This wrapper function can
+        execute
+        code
+        before and/or after calling the original handler.</p>
+      <h3 id="example-enhanced-logging-with-wrappers">Example: Enhanced Logging with Wrappers</h3>
+      <p>This example demonstrates how to use handler wrappers to add more detailed logging to the Google login flow.
+      </p>
+
+      <pre><code>import logging
+
+logging.basicConfig(level=logging.INFO) # Configure basic logging
+
+def google_login_init_wrapper(handler_function):
+    def wrapper(*args, **kwargs):
+        logging.info(&quot;Google login initialization started.&quot;)
+        return handler_function(*args, **kwargs) # Call original handler
+    return wrapper
+
+def google_callback_wrapper(handler_function):
+    def wrapper(*args, **kwargs):
+        logging.info(&quot;Google callback handler started.&quot;)
+        response = handler_function(*args, **kwargs) # Call original callback handler
+        if response.status_code == 302: # Check for successful redirect (login success)
+            logging.info(&quot;Google login successful. User redirected.&quot;)
+        else:
+            logging.warning(f&quot;Google login callback failed. Response: {response.get_json()}&quot;) # Log errors
+        return response
+    return wrapper
+
+config = Config()
+
+config.google_auth(
+    google_auth_client_id=&quot;YOUR_GOOGLE_CLIENT_ID&quot;,
+    google_auth_client_secret=&quot;YOUR_GOOGLE_CLIENT_SECRET&quot;,
+    google_auth_initialization_handler_uri=&quot;/auth/google/login&quot;,
+    google_auth_callback_handler_uri=&quot;/auth/google/callback&quot;,
+    google_auth_initialization_handler_wrapper=google_login_init_wrapper, # Apply init wrapper
+    google_auth_callback_handler_wrapper=google_callback_wrapper     # Apply callback wrapper
+)
+
+initialize_social_login(session, app, config)
+</code></pre>
+      <p>In this enhanced example:</p>
+      <ul>
+        <li>We import the <code>logging</code> module and configure basic logging to output informational messages and
+          warnings.</li>
+        <li><code>google_login_init_wrapper</code> logs a message when the Google login initialization starts.</li>
+        <li><code>google_callback_wrapper</code> logs when the callback handler starts and then checks the response
+          from
+          the
+          original handler.<ul>
+            <li>If the response is a redirect (status code 302, indicating successful login), it logs a success
+              message.
+            </li>
+            <li>If the response is not a redirect (likely an error), it logs a warning message along with the JSON
+              error
+              response from the handler.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>By using wrappers like these, you can add robust logging, error handling, or other custom logic around the
+        social
+        login flow without modifying the core library functions.</p>
+      <h2 id="important-notes">Important Notes</h2>
+      <h3 id="security-best-practices">Security Best Practices</h3>
+      <ul>
+        <li><strong>Securely Store Client Secrets:</strong> Client Secrets are sensitive credentials. <strong>Never
+            hardcode
+            them directly into your application code, especially if it&#39;s publicly accessible (e.g., in version
+            control).</strong> Use environment variables, secure configuration management systems, or secret vaults to
+          store
+          and retrieve client secrets. In your application, access these secrets via environment variables or your
+          chosen
+          secure configuration method.</li>
+        <li><strong>HTTPS in Production:</strong> <strong>Always use HTTPS for your production application.</strong>
+          OAuth
+          2.0
+          flows rely on secure redirects, and HTTPS ensures that data transmitted during the OAuth process (including
+          authorization codes and access tokens) is encrypted and protected from eavesdropping.</li>
+        <li><strong>Validate Redirect URIs:</strong> Carefully configure the Redirect URIs/Callback URLs in your
+          social
+          provider application settings. Ensure they precisely match the <code>*_auth_callback_handler_uri</code>
+          values
+          configured in your Flask Social OAuth <code>Config</code>. Mismatched redirect URIs can lead to OAuth flow
+          failures
+          or security vulnerabilities.</li>
+        <li><strong>Regularly Review Scopes:</strong> Request only the OAuth scopes that are absolutely necessary for
+          your
+          application&#39;s functionality. Minimize the amount of user data you request to respect user privacy and
+          reduce
+          potential security risks.</li>
+        <li><strong>Flask Secret Key Security:</strong> As emphasized earlier, use a strong, randomly generated, and
+          secret
+          <code>secret_key</code> for your Flask application to protect session data.
+        </li>
+      </ul>
+      <h3 id="state-parameter-and-csrf-protection">State Parameter and CSRF Protection</h3>
+      <p>The Flask Social OAuth library utilizes a <code>state</code> parameter in the OAuth 2.0 authorization
+        requests
+        and
+        validates it in the callback handlers. This is a crucial security measure to prevent Cross-Site Request
+        Forgery
+        (CSRF)
+        attacks.</p>
+      <p><strong>How CSRF Protection Works with State Parameter:</strong></p>
+      <ol>
+        <li><strong>Login Initialization:</strong> When your application initiates a social login flow (e.g.,
+          redirects
+          the
+          user to Google&#39;s login page), the library generates a unique, random string called the &quot;state
+          parameter.&quot; This state parameter is:<ul>
+            <li>Included as a parameter in the OAuth authorization request URL sent to the social provider.</li>
+            <li>Stored in a cookie in the user&#39;s browser (with <code>httponly=True</code> and a short expiration).
+            </li>
+          </ul>
+        </li>
+        <li><strong>Callback from Provider:</strong> After the user authenticates at the social provider, the provider
+          redirects the user back to your application&#39;s callback URL, <strong>including the same state parameter
+            in
+            the
+            URL.</strong></li>
+        <li><strong>State Validation:</strong> The Flask Social OAuth callback handler retrieves the state parameter
+          from
+          both:<ul>
+            <li>The URL from the social provider&#39;s redirect.</li>
+            <li>The cookie that was set during login initialization. It then <strong>compares these two state
+                parameters.</strong></li>
+          </ul>
+        </li>
+        <li><strong>Authentication Success or Failure:</strong>
+          <ul>
+            <li><strong>Match:</strong> If the state parameters match, it confirms that the callback is a legitimate
+              response
+              to a login request initiated by your application and is not a CSRF attack. The OAuth flow continues.
+            </li>
+            <li><strong>Mismatch:</strong> If the state parameters do not match, it indicates a potential CSRF attack.
+              The
+              callback handler rejects the login attempt and returns an error response.</li>
+          </ul>
+        </li>
+      </ol>
+      <p><strong>Importance of Cookies:</strong></p>
+      <p>The state parameter mechanism relies on cookies to securely transmit and verify the state between your
+        application
+        and the user&#39;s browser during the OAuth flow. <strong>Ensure that cookies are enabled in your Flask
+          application
+          and that users have cookies enabled in their browsers</strong> for the state parameter-based CSRF protection
+        to
+        function correctly.</p>
+      <h3 id="provider-application-setup---links-to-documentation">Provider Application Setup - Links to Documentation
+      </h3>
+      <p>To use Flask Social OAuth, you&#39;ll need to create OAuth applications (also sometimes called
+        &quot;projects&quot;
+        or &quot;credentials&quot;) in the developer portals of each social provider you wish to support. Here are
+        links
+        to
+        the documentation for setting up OAuth applications for Google, GitHub, and Discord:</p>
+      <ul>
+        <li><strong>Google:</strong> <a href="https://support.google.com/cloud/answer/6158849?hl=en">Google Cloud
+            Console
+            -
+            Creating OAuth 2.0 credentials</a> (Search for &quot;Create OAuth 2.0 credentials&quot;)</li>
+        <li><strong>GitHub:</strong> <a
+            href="https://www.google.com/url?sa=E&source=gmail&q=https://docs.github.com/en/developers/apps/creating-an-oauth-app">GitHub
+            Developer documentation - Creating an OAuth App</a></li>
+        <li><strong>Discord:</strong> <a
+            href="https://www.google.com/url?sa=E&source=gmail&q=https://discord.com/developers/docs/topics/oauth2">Discord
+            Developer Portal - OAuth2</a></li>
+      </ul>
+      <p>Follow the documentation for each provider to:</p>
+      <ol>
+        <li>Create a new OAuth application.</li>
+        <li>Obtain your application&#39;s <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
+        <li>Configure <strong>Redirect URIs/Callback URLs</strong>. Make sure these match the
+          <code>*_auth_callback_handler_uri</code> values you configure in your Flask Social OAuth <code>Config</code>
+          object.
+        </li>
+        <li>Enable necessary APIs or scopes for your application (e.g., Google People API, GitHub User API, Discord
+          <code>identify</code> and <code>email</code> scopes).
+        </li>
+      </ol>
+      <h2 id="example-application-complete-code">Example Application (Complete Code)</h2>
+      <p>Here&#39;s the complete code for the example Flask application, incorporating all the setup and usage steps
+        discussed
+        in this documentation. Remember to replace the placeholder Client IDs and Secrets with your actual credentials
+        and
+        set
+        a strong <code>secret_key</code>.</p>
+
+      <pre><code>from flask import Flask, session, jsonify
+from flask_social_oauth import Config, initialize_social_login
+
+app = Flask(__name__)
+app.secret_key = &#39;your_secret_key&#39; # Replace with a strong secret key in production
+
+# Configure social authentication providers
+config = Config()
+
+config.google_auth(
+    google_auth_client_id=&quot;&lt;YOUR_GOOGLE_CLIENT_ID&gt;&quot;,  # Replace with your Google Client ID
+    google_auth_client_secret=&quot;&lt;YOUR_GOOGLE_CLIENT_SECRET&gt;&quot;, # Replace with your Google Client Secret
+    google_auth_initialization_handler_uri=&quot;/auth/google/login&quot;,
+    google_auth_callback_handler_uri=&quot;/auth/google/callback&quot;
+)
+
+config.github_auth(
+    github_auth_client_id=&quot;&lt;YOUR_GITHUB_CLIENT_ID&gt;&quot;, # Replace with your GitHub Client ID
+    github_auth_client_secret=&quot;&lt;YOUR_GITHUB_CLIENT_SECRET&gt;&quot;, # Replace with your GitHub Client Secret
+    github_auth_initialization_handler_uri=&quot;/auth/github/login&quot;,
+    github_auth_callback_handler_uri=&quot;/auth/github/callback&quot;
+)
+
+config.discord_auth(
+    discord_auth_client_id=&quot;&lt;YOUR_DISCORD_CLIENT_ID&gt;&quot;, # Replace with your Discord Client ID
+    discord_auth_client_secret=&quot;&lt;YOUR_DISCORD_CLIENT_SECRET&gt;&quot;, # Replace with your Discord Client Secret
+    discord_auth_initialization_handler_uri=&quot;/auth/discord/login&quot;,
+    discord_auth_callback_handler_uri=&quot;/auth/discord/callback&quot;
+)
+
+# Initialize social login
+initialize_social_login(session, app, config)
+
+@app.route(&#39;/&#39;)
+def home():
+    user_data = session.get(&#39;user&#39;)
+    return jsonify({&#39;session&#39;: session.get(&#39;user&#39;)})
+
+if __name__ == &#39;__main__&#39;:
+    app.run(debug=True)
+</code></pre>
+    </div>
+  </main>
+
+</body>
+
+</html>
